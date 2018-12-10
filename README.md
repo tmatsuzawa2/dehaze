@@ -8,11 +8,11 @@ In this project, we will be trying haze removal so that more information can be 
 
 ## Motivation
 
-### Importance
+### 1. Importance
 
 Dehazing techniques are commonly used in varieties of practical situations. It is one of the secret weapons used by night photographers to illustrate a better night scene; it can be used to detect dust spots in the picture, and it is also used to make scenes of milky way more three-dimensional. Furthermore, after dehazing some of the pictures that are either naturally or artificially obfuscated, photographers have noticed that the layerings and balances in color are improved significantly, and the entire scene is more appreciable. 
 
-### State-of-the-art
+### 2. State-of-the-art
 
 The most popular dehaze tool currently is Adobe Lightroom. Adobe Lightroom is an image manipulation software developed by Adobe system for Windows and macOS which allows viewing, organizing and editing a large number of images and the operations are not destructive.
 
@@ -32,11 +32,11 @@ Comparing two different methods, the image in Lightroom has more favorable but a
 
 ## Approach
 
-### Re-implemeting existing solution or using new approaches?
+### 1. Re-implemeting existing solution or using new approaches?
 
 We decided to re-implement the existing algorithm and try to refine it better.  The current MATLAB function is effective and convenient, but it might not apply to all circumstances. Perhaps we could build an interactive program that takes input from the user to generate better results. For example, users could specify the color of the haze for a more accurate result.
 
-### Reasons for change
+### 2. Reasons for change
 
 As shown in the image above, the existing solution which is rendering image through Adobe Lightroom creates some unnatural artifacts in the sky. Adobe Lightroom seems to be generating the incorrect information to compensate for the lost detail in the haze. We are working on an alternative solution to either better reserve the original information or find a better way to fill in the missing pieces. We speculate that the image would look better if we remove the noises in the sky using something like a Gaussian filter.
 
@@ -78,9 +78,38 @@ end
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+### Step 1.5: Atmosphere
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/tmatsuzawa2/dehaze/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Atmosphere here is defined by the amounts of atmospheric light reflected/existed in each pixel of an image. The reason of the method get_atmosphere is to use in later step when we are estimating depth levels.
+
+```markdown
+function atmosphere = get_atmosphere(image, dark_channel)
+%inputs: original image and window size, image of the dark channel 
+%outputs: image of the atmosphere using dark channel
+
+[m, n, ~] = size(image);    
+n_pixels = m * n;           
+
+n_search_pixels = floor(n_pixels * 0.01);   
+
+dark_vec = reshape(dark_channel, n_pixels, 1);
+
+image_vec = reshape(image, n_pixels, 3);
+
+[~, indices] = sort(dark_vec, 'descend');
+
+accumulator = zeros(1, 3);                     
+
+for k = 1 : n_search_pixels
+    accumulator = accumulator + image_vec(indices(k),:);
+end
+
+atmosphere = accumulator / n_search_pixels;
+
+end
+
+```
+As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And atmosphere at a certain pixel can be defined as image[new dark_channel] 
 
 ### Support or Contact
 
