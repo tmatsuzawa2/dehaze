@@ -109,7 +109,7 @@ atmosphere = accumulator / n_search_pixels;
 end
 
 ```
-As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And atmosphere at a certain pixel can be defined as image[new dark_channel] 
+As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And the value of atmosphere at a certain pixel can be defined as image[new dark_channel] 
 
 ### Support or Contact
 
