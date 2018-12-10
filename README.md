@@ -16,6 +16,8 @@ The most popular dehaze tool currently is Adobe Lightroom. Adobe Lightroom is an
 
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze_01.jpg?raw=true" class="center" width="400px"/>
 
+Original Image
+
 ```markdown
 Syntax highlighted code block
 
