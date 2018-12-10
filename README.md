@@ -1,10 +1,12 @@
-## Image Dehazing
+# Image Dehazing
 
 Images obtained under adverse weather conditions, such as haze or fog, typically exhibit low contrast and faded colors, which may severely limit the visibility within the scene. 
 
 Unveiling the image structure under the haze layer and recovering vivid colors out of a single image remains a challenging task, since the degradation is depth-dependent and conventional methods are unable to overcome this problem.
 
 In this project, we will be trying haze removal so that more information can be restored and displayed. The feature is mainly used to remove fog and haze from the original and produce the actual clear images. Instead of using contrast slider, dehaze slider functions by targeting the lower-contrast areas of the scene and applying the bulk of its effects there. Therefore, low contrast areas of the scene get more of the effect than high contrast areas. 
+
+## Motivation
 
 ### Importance
 
@@ -28,6 +30,8 @@ Another common way that can be used to dehaze is MATLAB, the resulted image usin
 
 Comparing two different methods, the image in Lightroom has more favorable but artificial color illustrations, while the image in MATLAB has a more clear illustration that nearer from the lens (buildings in this example). However, both tools have disadvantages: Lightroom is less likely to detect depth and apply them to the dehaze slider, while MATLAB has some difficulties in detecting and erasing noises collected by the sensor.
 
+## Approach
+
 ### Re-implemeting existing solution or using new approaches?
 
 We decided to re-implement the existing algorithm and try to refine it better.  The current MATLAB function is effective and convenient, but it might not apply to all circumstances. Perhaps we could build an interactive program that takes input from the user to generate better results. For example, users could specify the color of the haze for a more accurate result.
@@ -41,6 +45,11 @@ Furthermore, if you look closely at the buildings in the picture, there is clear
 To determine the intensity of the haze, there is a popular method called “dark channel prior.” This method uses a certain supposedly low-intensity channel to detect the intensity of haze. If the intensity of the channel is abnormally high, chances are this pixel is affected by haze.
 
 After we estimated the depth of each pixel, a simple formula should give us the estimation of haze in each pixel. Restoring the original image should be as easy as readjusting the RGB value. Adjust more for further pixels and less for nearer pixels.
+
+## Implementation
+
+### Step 1
+
 
                                                  
 ```markdown
