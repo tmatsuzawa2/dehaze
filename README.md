@@ -21,6 +21,27 @@ Now we use an hazed image as example:
 This is the dehazed image using Adobe Lightroom
 
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/Adobelightroom.JPG?raw=true" class="center" width="400px"/>
+
+Another common way that can be used to dehaze is MATLAB, the resulted image using function imreducehaze() with 60 percent of dehazing is shown below:
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/matlab.JPG?raw=true" class="center" width="400px"/>
+
+Comparing two different methods, the image in Lightroom has more favorable but artificial color illustrations, while the image in MATLAB has a more clear illustration that nearer from the lens (buildings in this example). However, both tools have disadvantages: Lightroom is less likely to detect depth and apply them to the dehaze slider, while MATLAB has some difficulties in detecting and erasing noises collected by the sensor.
+
+### Re-implemeting existing solution or using new approaches?
+
+We decided to re-implement the existing algorithm and try to refine it better.  The current MATLAB function is effective and convenient, but it might not apply to all circumstances. Perhaps we could build an interactive program that takes input from the user to generate better results. For example, users could specify the color of the haze for a more accurate result.
+
+### Reasons for change
+
+As shown in the image above, the existing solution which is rendering image through Adobe Lightroom creates some unnatural artifacts in the sky. Adobe Lightroom seems to be generating the incorrect information to compensate for the lost detail in the haze. We are working on an alternative solution to either better reserve the original information or find a better way to fill in the missing pieces. We speculate that the image would look better if we remove the noises in the sky using something like a Gaussian filter.
+
+Furthermore, if you look closely at the buildings in the picture, there is clearly remaining haze. It appears that Adobe Lightroom applies the same intensity of dehaze filter to every area of the picture. This method overlooked the fact that areas with different depths generate different amount of haze. 
+
+To determine the intensity of the haze, there is a popular method called “dark channel prior.” This method uses a certain supposedly low-intensity channel to detect the intensity of haze. If the intensity of the channel is abnormally high, chances are this pixel is affected by haze.
+
+After we estimated the depth of each pixel, a simple formula should give us the estimation of haze in each pixel. Restoring the original image should be as easy as readjusting the RGB value. Adjust more for further pixels and less for nearer pixels.
+
                                                  
 ```markdown
 Syntax highlighted code block
