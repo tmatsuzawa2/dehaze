@@ -14,7 +14,7 @@ Dehazing techniques are commonly used in varieties of practical situations. It i
 
 The most popular dehaze tool currently is Adobe Lightroom. Adobe Lightroom is an image manipulation software developed by Adobe system for Windows and macOS which allows viewing, organizing and editing a large number of images and the operations are not destructive.
 
-<div class="picture_div" style="margin:0px auto; text-align:center;">
+<div style="display: flex; justify-content: center;">
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze_01.jpg?raw=true" class="center" width="400px"/>
 </div>
 
