@@ -1,12 +1,20 @@
-## Welcome to GitHub Pages
+## Image Dehazing
 
-You can use the [editor on GitHub](https://github.com/tmatsuzawa2/dehaze/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Images obtained under adverse weather conditions, such as haze or fog, typically exhibit low contrast and faded colors, which may severely limit the visibility within the scene. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Unveiling the image structure under the haze layer and recovering vivid colors out of a single image remains a challenging task, since the degradation is depth-dependent and conventional methods are unable to overcome this problem.
 
-### Markdown
+In this project, we will be trying haze removal so that more information can be restored and displayed. The feature is mainly used to remove fog and haze from the original and produce the actual clear images. Instead of using contrast slider, dehaze slider functions by targeting the lower-contrast areas of the scene and applying the bulk of its effects there. Therefore, low contrast areas of the scene get more of the effect than high contrast areas. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Importance
+
+Dehazing techniques are commonly used in varieties of practical situations. It is one of the secret weapons used by night photographers to illustrate a better night scene; it can be used to detect dust spots in the picture, and it is also used to make scenes of milky way more three-dimensional. Furthermore, after dehazing some of the pictures that are either naturally or artificially obfuscated, photographers have noticed that the layerings and balances in color are improved significantly, and the entire scene is more appreciable. 
+
+### State-of-the-art
+
+The most popular dehaze tool currently is Adobe Lightroom. Adobe Lightroom is an image manipulation software developed by Adobe system for Windows and macOS which allows viewing, organizing and editing a large number of images and the operations are not destructive.
+
+
 
 ```markdown
 Syntax highlighted code block
