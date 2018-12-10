@@ -48,26 +48,32 @@ After we estimated the depth of each pixel, a simple formula should give us the 
 
 ## Implementation
 
-### Step 1
-
-
+### Step 1: Dark Channel
                                                  
 ```markdown
-Syntax highlighted code block
+function dark_channel = get_dark_channel(image, w_size)
+%inputs: original image and window size
+%output: image of the dark channel 
 
-# Header 1
-## Header 2
-### Header 3
+[x, y, ~] = size(image);        %size of the image
 
-- Bulleted
-- List
+pad_size = floor(w_size/2);     %pad size using value of window size
 
-1. Numbered
-2. List
+padded_image = padarray(image, [pad_size pad_size], Inf);   %pad the image according to pad size
 
-**Bold** and _Italic_ and `Code` text
+dark_channel = zeros(x, y); 
 
-[Link](url) and ![Image](src)
+%For every pixel(i,j) in the image, find out the darkest point within the
+%range of (i ± window size, j ± window size)
+for j = 1 : x
+    for i = 1 : y
+        patch = padded_image(j : j + (w_size-1), i : i + (w_size-1), :);
+        dark_channel(j,i) = min(patch(:));
+     end
+end
+
+end
+
 ```
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
