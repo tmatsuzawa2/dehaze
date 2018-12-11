@@ -30,6 +30,7 @@ Another common way that can be used to dehaze is MATLAB, the resulted image usin
 
 Comparing two different methods, the image in Lightroom has more favorable but artificial color illustrations, while the image in MATLAB has a more clear illustration that nearer from the lens (buildings in this example). However, both tools have disadvantages: Lightroom is less likely to detect depth and apply them to the dehaze slider, while MATLAB has some difficulties in detecting and erasing noises collected by the sensor.
 
+
 ## Approach
 
 ### 1. Re-implemeting existing solution or using new approaches?
@@ -45,6 +46,7 @@ Furthermore, if you look closely at the buildings in the picture, there is clear
 To determine the intensity of the haze, there is a popular method called “dark channel prior.” This method uses a certain supposedly low-intensity channel to detect the intensity of haze. If the intensity of the channel is abnormally high, chances are this pixel is affected by haze.
 
 After we estimated the depth of each pixel, a simple formula should give us the estimation of haze in each pixel. Restoring the original image should be as easy as readjusting the RGB value. Adjust more for further pixels and less for nearer pixels.
+
 
 ## Implementation
 
@@ -119,9 +121,9 @@ Depth estimation is used to find out the amounts of haze in different depth leve
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/formula2.png?raw=true" class="center" width="600px"/>
 
 Here I represents the intensity of image, and A represents the atmosphere of the image. 
-Ω here is an application variable between 0 and 1.
+ω here is an application variable between 0 and 1.
 
-Since there is no object in the world that is completlely free of particle, human can not sense depth levels without any haze available. Therefore, it is better to leave Ω less than 1 (suggested 0.95 at most).
+Since there is no object in the world that is completlely free of particle, human can not sense depth levels without any haze available. Therefore, it is better to choose ω less than 1 (suggested 0.95 at most).
 
 ```markdown
 function depth_est = get_depth_estimate(image, atmosphere, omega, w_size)
@@ -184,6 +186,7 @@ radiance = ((image - rep_atmosphere) ./ max_transmission) + rep_atmosphere;
 end
 ```
 
+
 ## Result
 
 ### Original Image
@@ -215,3 +218,24 @@ Unexpected figures are relatively obvious.
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/withfilter.JPG?raw=true" width="400px"/>
 
 ### Final result
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze%201.gif?raw=true" width="400px"/>
+
+ω used: 0.2, 0.4, 0.6, 0.8, 0.95
+
+
+## Discussion
+
+### Deficiencies
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/discussion.jpg?raw=true" width="400px"/>
+
+The three pairs of images representing different intensities of image dehazing. The histogram of the top, which is the original image shows three peaks. Each representing a level of depth. As the intensity of dehazing increases, the three peaks shifts left and merges into 1. Also note that there are little colored information in the original image and dehazing magnifies the information. So inevitably, some details will be lost.
+
+### Conclusion
+
+In addition to the decent quality of resulted images, most of the noices and unexpected noises can be erased by dark channel and guilded filter. However, there will be around the same amounts of details lost using this approach.
+
+## Links
+
+*[Implementations] (https://github.com/tmatsuzawa2/dehaze/tree/master/code) and [presentation slides] (https://github.com/tmatsuzawa2/dehaze/tree/master/slides) can be found in the github reprository.*
