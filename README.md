@@ -219,7 +219,7 @@ Unexpected figures are relatively obvious.
 
 ### Final result
 
-<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze%201.gif?raw=true" width="400px"/>
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze%201.gif?raw=true" width="600px"/>
 
 ω used: 0.2, 0.4, 0.6, 0.8, 0.95
 
@@ -228,7 +228,7 @@ Unexpected figures are relatively obvious.
 
 ### Deficiencies
 
-<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/discussion.jpg?raw=true" width="400px"/>
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/discussion.jpg?raw=true" width="600px"/>
 
 The three pairs of images representing different intensities of image dehazing. The histogram of the top, which is the original image shows three peaks. Each representing a level of depth. As the intensity of dehazing increases, the three peaks shifts left and merges into 1. Also note that there are little colored information in the original image and dehazing magnifies the information. So inevitably, some details will be lost.
 
