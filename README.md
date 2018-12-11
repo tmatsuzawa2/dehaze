@@ -236,6 +236,14 @@ The three pairs of images representing different intensities of image dehazing. 
 
 In addition to the decent quality of resulted images, most of the noices and unexpected noises can be erased by dark channel and guilded filter. However, there will be around the same amounts of details lost using this approach.
 
+
+
 ## Links
 
-*[Implementations] (https://github.com/tmatsuzawa2/dehaze/tree/master/code) and [presentation slides] (https://github.com/tmatsuzawa2/dehaze/tree/master/slides) can be found in the github reprository.*
+**[Implementations](https://github.com/tmatsuzawa2/dehaze/tree/master/code) and [presentation slides](https://github.com/tmatsuzawa2/dehaze/tree/master/slides) can be found in the github reprository.**
+
+## Work Cited
+
+- Image used from [here](https://www.smithsonianmag.com/smart-news/these-are-worst-cities-air-pollution-180968871/)
+- [Single Image Haze Removal Using Dark Channel Prior.](http://kaiminghe.com/publications/cvpr09.pdf)
+- Guided filter algorithm used from "Fast Guided Filter" (Algorithm 1); cited: arXiv:1505.00996v1 [cs.CV] 
