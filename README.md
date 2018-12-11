@@ -78,7 +78,7 @@ end
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Step 1.5: Atmosphere
+### Step 2: Atmosphere
 
 Atmosphere here is defined by the amounts of atmospheric light reflected/existed in each pixel of an image. The reason of the method get_atmosphere is to use in later step when we are estimating depth levels.
 
@@ -109,18 +109,18 @@ atmosphere = accumulator / n_search_pixels;
 end
 
 ```
-As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And the value of atmosphere at a certain pixel can be defined as image[new dark_channel] 
+As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And the value of atmosphere at a certain pixel can be defined as image[new dark_channel].
 
-### Step 2: Depth/Transmission estimation
+### Step 3: Depth/Transmission estimation
 
-Depth estimation is used to find out the amounts of haze in different depth levels so that pictures can be dehazed more naturally in human perception
+Depth estimation is used to find out the amounts of haze in different depth levels so that pictures can be dehazed more naturally in human perception.
 
 <img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/formula2.png?raw=true" class="center" width="600px"/>
 
 Here I represents the intensity of image, and A represents the atmosphere of the image. 
-Ω here is an application variable between 0 and 1
+Ω here is an application variable between 0 and 1.
 
-Since there is no object in the world that is completlely free of particle, human can not sense depth levels without any haze available. Therefore, it is better to leave Ω less than 1 (suggested 0.95 at most)
+Since there is no object in the world that is completlely free of particle, human can not sense depth levels without any haze available. Therefore, it is better to leave Ω less than 1 (suggested 0.95 at most).
 
 ```markdown
 function depth_est = get_depth_estimate(image, atmosphere, omega, w_size)
@@ -137,3 +137,26 @@ depth_est = 1 - omega * get_dark_channel( image ./ rep_atmosphere, w_size);
 
 end
 ```
+### Problem: Unexpected figures
+
+Random dark pixels in the image could create significant noise in the depth estimation image since the padded method greatly intensifies its presence.
+
+Here is the dark channel image (padded size = 1):
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/pad1.JPG?raw=true" class="center" width="400px"/>
+
+And here is the dark channel image (padded size = 10):
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/pad10.JPG?raw=true" class="center" width="400px"/>
+
+Comparing two graphs and we can find out that as the padded size grew larger, unexpected figures in the original image are also enlarged and can not be ingored. Thus we are now introducing the solution: guided filter.
+
+### Step 4: Applying filter
+
+Here we are using an algorithm 1 refered to "Fast guided filter" by Kaiming He and Juan Sun. The main computation is a series of box filter.
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/algorithm.JPG?raw=true" class="center" width="400px"/>
+
+Image above shows the pseudo-code of the algorithm, fmean(·, r) denotes a mean filter with a radius r.
+
+###
