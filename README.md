@@ -111,6 +111,29 @@ end
 ```
 As the code implemented above, we basically sorted the dark channels in descending order and use them as indices of the image. And the value of atmosphere at a certain pixel can be defined as image[new dark_channel] 
 
-### Support or Contact
+### Step 2: Depth/Transmission estimation
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Depth estimation is used to find out the amounts of haze in different depth levels so that pictures can be dehazed more naturally in human perception
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/formula2.png?raw=true" class="center" width="600px"/>
+
+Here I represents the intensity of image, and A represents the atmosphere of the image. 
+Ω here is an application variable between 0 and 1
+
+Since there is no object in the world that is completlely free of particle, human can not sense depth levels without any haze available. Therefore, it is better to leave Ω less than 1 (suggested 0.95 at most)
+
+```markdown
+function depth_est = get_depth_estimate(image, atmosphere, omega, w_size)
+%   - original image: image
+%   - result get from get_atmosphere: atmosphere
+%   - software variable: omega
+%   - window size: w_size
+
+[m, n, ~] = size(image);
+
+rep_atmosphere = repmat(reshape(atmosphere, [1, 1, 3]), m, n);
+
+depth_est = 1 - omega * get_dark_channel( image ./ rep_atmosphere, w_size);
+
+end
+```
