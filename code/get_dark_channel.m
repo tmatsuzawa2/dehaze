@@ -11,7 +11,7 @@ padded_image = padarray(image, [pad_size pad_size], Inf);   %pad the image accor
 dark_channel = zeros(x, y); 
 
 %For every pixel(i,j) in the image, find out the darkest point within the
-%range of (i ± window size, j ± window size)
+%range of (i Â± window size, j Â± window size)
 for j = 1 : x
     for i = 1 : y
         patch = padded_image(j : j + (w_size-1), i : i + (w_size-1), :);
