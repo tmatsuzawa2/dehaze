@@ -1,7 +1,10 @@
 #### Group Member: 
-Xuetong Du | xdu49@wisc.edu | xdu49
-Kevin Lin | klin55@wisc.edu | klin55
-Takashi Matsuzawa | tmatsuzawa@wisc.edu | tmatsuzawa
+Xuetong Du, xdu49@wisc.edu, xdu49
+
+Kevin Lin, klin55@wisc.edu, klin55
+
+Takashi Matsuzawa, tmatsuzawa@wisc.edu, tmatsuzawa
+
 
 # Image Dehazing
 
