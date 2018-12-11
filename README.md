@@ -49,6 +49,8 @@ After we estimated the depth of each pixel, a simple formula should give us the 
 ## Implementation
 
 ### Step 1: Dark Channel
+
+Dark channel, the first but central part of the approaches, is a group of the dark pixels which have very low intensity in at least one color (rgb) channel. In the haze image, the intensity of these dark pixels in that channel is mainly contributed by the airlight(atmosphere). Therefore, these dark pixels can directly provide accurate estimation of the haze's transmission.
                                                  
 ```markdown
 function dark_channel = get_dark_channel(image, w_size)
@@ -73,10 +75,9 @@ for j = 1 : x
 end
 
 end
-
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+As the code shown above, for finding the dark pixels, we simply just find the darkest point within the certian area of padded image. The reason that we want the image to be padded to the window size is for preventing the error around the corner, After we get the information we need, we will be able to adjust the depth estimation.
 
 ### Step 2: Atmosphere
 
@@ -159,4 +160,28 @@ Here we are using an algorithm 1 refered to "Fast guided filter" by Kaiming He a
 
 Image above shows the pseudo-code of the algorithm, fmean(·, r) denotes a mean filter with a radius r.
 
-###
+### Step 5: Recover Radiance
+
+The last step is to recover the radiance using atmosphere and max transmission. Here is the formula to find out the final scence radiance J(x)
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/formula3.JPG?raw=true" class="center" width="600px"/>
+
+Where I(x) is the intensity of image, A is the atmosphere, and t(x) is the transmissions (t0 is the lower bound of t(x)).
+
+```markdown
+function radiance = get_radiance(image, depth, atmosphere)
+%inputs: improved image, depth level and atmosphere
+%output: radiance of the image
+
+[m, n, ~] = size(image);
+
+rep_atmosphere = repmat(reshape(atmosphere, [1, 1, 3]), m, n);
+
+max_transmission = repmat(max(depth, 0.1), [1, 1, 3]);
+
+radiance = ((image - rep_atmosphere) ./ max_transmission) + rep_atmosphere;
+
+end
+```
+
+
