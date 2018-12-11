@@ -1,3 +1,10 @@
+#### Group Member: 
+Xuetong Du | xdu49@wisc.edu | xdu49
+
+Kevin Lin | klin55@wisc.edu | klin55
+
+Takashi Matsuzawa | tmatsuzawa@wisc.edu | tmatsuzawa
+
 # Image Dehazing
 
 Images obtained under adverse weather conditions, such as haze or fog, typically exhibit low contrast and faded colors, which may severely limit the visibility within the scene. 
