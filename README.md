@@ -184,4 +184,34 @@ radiance = ((image - rep_atmosphere) ./ max_transmission) + rep_atmosphere;
 end
 ```
 
+## Result
 
+### Original Image
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dehaze_01.jpg?raw=true" width="400px"/>
+
+### Dark Channel Image
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/dark_channel.JPG?raw=true" width="400px"/>
+
+### Depth Transmission Image
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/depth.JPG?raw=true" width="400px"/>
+
+### Results without filter
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/withoutfilter.jpg?raw=true" width="400px"/>
+
+The red circle circled the unexpected point presented in the image.
+Here we take a closer look:
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/withoutfilter2.jpg?raw=true" width="400px"/>
+Unexpected figures are relatively obvious.
+
+### Results with filter
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/withfilter2.JPG?raw=true" width="400px"/>
+
+<img src = "https://github.com/tmatsuzawa2/dehaze/blob/master/withfilter.JPG?raw=true" width="400px"/>
+
+### Final result
